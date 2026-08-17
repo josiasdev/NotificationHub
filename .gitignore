@@ -1,0 +1,17 @@
+# Target & Build
+target/
+*.jar
+*.war
+
+# Node & Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# IDE & OS
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+.DS_Store
