@@ -75,3 +75,20 @@ Desenvolvimento do Frontend da aplicação em React, TypeScript e Vite para simu
    - Tabela detalhada das mensagens geradas com severidade (`INFO`, `WARNING`, `CRITICAL`), número de retentativas, destinatário e badges de status de envio (`SENT`, `PENDING`, `FAILED`, `DLQ_ROUTED`).
 
 ---
+
+## [2026-08-17] - Etapa 4: Testes de Integração com Testcontainers (MongoDB & RabbitMQ)
+
+### Contexto e Objetivo
+Criar testes de integração de ponta a ponta com **Testcontainers** subindo contêineres reais isolados do MongoDB (`mongo:7.0`) e do RabbitMQ (`rabbitmq:3.13-management`).
+
+### Ferramentas de IA Utilizadas
+- **Ferramenta:** Antigravity (Gemini 3.6 Flash)
+- **Objetivo:** Implementar classe `IngestSensorEventIntegrationTest` utilizando `@Testcontainers`, `@Container` e `@DynamicPropertySource`.
+- **Prompt:** "Etapa 4: Testes de Integração com Testcontainers (MongoDB & RabbitMQ)"
+
+### Detalhes da Implementação
+- **Container MongoDB:** Sobe instância real de banco de dados para validar persistência e índices de restrição de idempotência (`eventId`).
+- **Container RabbitMQ:** Sobe instância real do broker para validar publicação, consumo assíncrono e roteamento de notificações.
+- **Execução Condicional:** Anotação `@EnabledIfEnvironmentVariable(named = "DOCKER_AVAILABLE", matches = "true")` permitindo execução fluida em ambientes locais ou pipelines de CI/CD.
+
+---
