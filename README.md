@@ -17,45 +17,64 @@ A aplicação ingere dados de sensores IoT (temperatura, umidade do ar, umidade 
 
 O projeto segue estritamente os princípios de **Clean Architecture (Hexagonal)**, **SOLID** e **Rich Domain Modeling**:
 
-```text
-               +-------------------------------------------------------+
-               |                  INTERFACE WEB (SPA)                  |
-               |               (React + TypeScript + Vite)             |
-               +---------------------------+---------------------------+
-                                           | HTTP / REST API
-                                           v
-+-----------------------------------------------------------------------------------------+
-|                                    NOTIFICATIONHUB                                      |
-|                                                                                         |
-|  +-----------------------------------------------------------------------------------+  |
-|  | INFRASSTRUCTURE (Adapters / Frameworks)                                           |  |
-|  | - EventController & NotificationController (REST Endpoints)                       |  |
-|  | - SensorEventMongoAdapter & NotificationMongoAdapter (MongoDB)                    |  |
-|  | - RabbitMQNotificationProducer & EventRabbitListener (RabbitMQ)                   |  |
-|  | - MockWhatsAppNotificationAdapter (Messaging Provider Abstraction)                |  |
-|  +-----------------------------------------+-----------------------------------------+  |
-|                                            |                                            |
-|                                            v                                            |
-|  +-----------------------------------------------------------------------------------+  |
-|  | APPLICATION (Use Cases & Rules Engine)                                            |  |
-|  | - IngestSensorEventUseCase & SendNotificationUseCase                              |  |
-|  | - RulesEngine (Strategy Pattern for 6 Sensor Rules)                              |  |
-|  +-----------------------------------------+-----------------------------------------+  |
-|                                            |                                            |
-|                                            v                                            |
-|  +-----------------------------------------------------------------------------------+  |
-|  | DOMAIN (Pure Java 21 - Zero Framework Dependencies)                               |  |
-|  | - SensorEvent (Rich Invariants & Ingestion Validation)                            |  |
-|  | - Notification (State Machine: PENDING, SENT, FAILED, DLQ_ROUTED)                 |  |
-|  | - Repository & Sender Ports                                                       |  |
-|  +-----------------------------------------------------------------------------------+  |
-+-----------------------------------------------------------------------------------------+
-                                 |                         |
-                                 v                         v
-                       +------------------+      +-------------------+
-                       |  MongoDB Server  |      |  RabbitMQ Server  |
-                       |  (Persistência)  |      |   (Events & DLQ)  |
-                       +------------------+      +-------------------+
+```mermaid
+graph TD
+    subgraph Frontend["🖥️ Client Layer"]
+        UI["React + TypeScript + Vite<br/>(Dashboard & Simulador IoT)"]
+    end
+
+    subgraph NotificationHub["📦 NotificationHub (Spring Boot 3 / Java 21)"]
+
+        subgraph Infrastructure["🔌 Infrastructure Layer (Adapters & Config)"]
+            REST["REST Controllers<br/>(EventController / NotificationController)"]
+            Listener["RabbitMQ Listener<br/>(EventRabbitListener)"]
+            MongoAdapter["Persistence Adapters<br/>(SensorEventMongoAdapter / NotificationMongoAdapter)"]
+            RabbitProducer["Messaging Producer<br/>(RabbitMQNotificationProducer)"]
+            MockSender["Notification Provider Adapter<br/>(MockWhatsAppNotificationAdapter)"]
+        end
+
+        subgraph Application["⚙️ Application Layer (Use Cases & Engine)"]
+            IngestUC["IngestSensorEventUseCase"]
+            SendUC["SendNotificationUseCase"]
+            Engine["RulesEngine<br/>(Strategy Pattern)"]
+            Rules["Rules (AirTemp, AirHumidity, SoilMoisture,<br/>WaterReservoir, SiloLevel, EquipmentStatus)"]
+        end
+
+        subgraph Domain["💎 Domain Layer (Pure Java - Zero Framework Dependencies)"]
+            Event["SensorEvent<br/>(Rich Domain & Invariants Validation)"]
+            Notif["Notification<br/>(State Machine: PENDING, SENT, FAILED, DLQ)"]
+            Ports["Ports (Repositories & NotificationSender)"]
+        end
+
+    end
+
+    subgraph External["🐘 Infrastructure Services"]
+        MongoDB[("MongoDB 7.0<br/>(Event History & Unique Indexes)")]
+        RabbitMQ[("RabbitMQ 3.13<br/>(Event Queue & DLQ)")]
+    end
+
+    %% Flow Relations
+    UI -->|HTTP / REST API| REST
+    REST --> IngestUC
+    IngestUC --> Event
+    IngestUC --> Engine
+    Engine --> Rules
+    IngestUC --> MongoAdapter
+    IngestUC --> RabbitProducer
+    RabbitProducer -->|Publish| RabbitMQ
+    RabbitMQ -->|Consume| Listener
+    Listener --> SendUC
+    SendUC --> Notif
+    SendUC --> MockSender
+    MongoAdapter -->|Spring Data Mongo| MongoDB
+
+    %% Styling
+    style UI fill:#1e293b,stroke:#3b82f6,stroke-width:2px,color:#fff
+    style Domain fill:#0f172a,stroke:#10b981,stroke-width:2px,color:#fff
+    style Application fill:#0f172a,stroke:#f59e0b,stroke-width:2px,color:#fff
+    style Infrastructure fill:#0f172a,stroke:#8b5cf6,stroke-width:2px,color:#fff
+    style MongoDB fill:#1e293b,stroke:#10b981,stroke-width:2px,color:#fff
+    style RabbitMQ fill:#1e293b,stroke:#ef4444,stroke-width:2px,color:#fff
 ```
 
 ### 💡 Principais Pilares da Avaliação
