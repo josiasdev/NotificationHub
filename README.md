@@ -15,10 +15,9 @@ A aplicação ingere dados de sensores IoT (temperatura, umidade do ar, umidade 
 
 ## 🏗️ 2. Arquitetura e Decisões Técnicas
 
-![Arquitetura do NotificationHub](arquitetura.png)
+O projeto segue estritamente os princípios de **Clean Architecture (Hexagonal)**, **SOLID** e **Rich Domain Modeling**:
 
-<details>
-<summary><b>Clique para visualizar o código Mermaid do diagrama</b></summary>
+![Arquitetura da Solução NotificationHub](arquitetura.png)
 
 ```mermaid
 graph TD
@@ -79,8 +78,6 @@ graph TD
     style MongoDB fill:#1e293b,stroke:#10b981,stroke-width:2px,color:#fff
     style RabbitMQ fill:#1e293b,stroke:#ef4444,stroke-width:2px,color:#fff
 ```
-
-</details>
 
 ### 💡 Principais Pilares da Avaliação
 
