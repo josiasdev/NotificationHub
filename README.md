@@ -181,10 +181,10 @@ Com a aplicação rodando, acesse no seu navegador:
 
 ---
 
-## 📜 7. Registro do Processo de Desenvolvimento
+## 📜 7. Registros e Relatórios de Conformidade
 
-O histórico detalhado do uso de IA generativa (prompts, decisões tomadas e revisões técnicas) encontra-se no arquivo:
-📄 **[DEVELOPMENT_LOG.md](DEVELOPMENT_LOG.md)**
+- 📄 **[DEVELOPMENT_LOG.md](DEVELOPMENT_LOG.md):** Histórico detalhado do uso de IA generativa (prompts, decisões tomaras e revisões técnicas).
+- 📊 **[STATUS.md](STATUS.md):** Matriz de auditoria de conformidade com 100% dos requisitos do edital verificados.
 
 ---
 
