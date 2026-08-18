@@ -183,8 +183,9 @@ Com a aplicação rodando, acesse no seu navegador:
 
 ## 📜 7. Registros e Relatórios de Conformidade
 
-- 📄 **[DEVELOPMENT_LOG.md](DEVELOPMENT_LOG.md):** Histórico detalhado do uso de IA generativa (prompts, decisões tomaras e revisões técnicas).
+- 📄 **[DEVELOPMENT_LOG.md](DEVELOPMENT_LOG.md):** Histórico detalhado do uso de IA generativa (prompts, decisões tomadas e revisões técnicas).
 - 📊 **[STATUS.md](STATUS.md):** Matriz de auditoria de conformidade com 100% dos requisitos do edital verificados.
+- 🎬 **[ROTEIRO_APRESENTACAO.md](ROTEIRO_APRESENTACAO.md):** Roteiro passo a passo para gravação do vídeo de 5 min e modelo de e-mail para submissão.
 
 ---
 
