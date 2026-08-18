@@ -116,3 +116,19 @@ Implementar documentação interativa da API REST com Swagger UI / Springdoc Ope
    - Atualizado `GlobalExceptionHandler` para responder com HTTP 404 em `NoResourceFoundException` sem gerar poluição de logs.
 
 ---
+
+## [2026-08-17] - Etapa 6: Auditoria do Edital, Roteiro do Vídeo e Preparação da Submissão
+
+### Contexto e Objetivo
+Realizar a auditoria de conformidade em relação às instruções do edital ([Instructions.md](Instructions.md)), criar a matriz de conformidade (`STATUS.md`) e elaborar o roteiro para o vídeo de apresentação de 5 minutos com o modelo de e-mail de entrega (`ROTEIRO_APRESENTACAO.md`).
+
+### Ferramentas de IA Utilizadas
+- **Ferramenta:** Antigravity (Gemini 3.6 Flash)
+- **Objetivo:** Auditar todos os requisitos do projeto prático (60 pontos), gerar diagramas de arquitetura (Mermaid/PNG) e construir o roteiro do vídeo de defesa técnica.
+- **Prompt:** "vamos analisar todo o projeto e ver se fizemos tudo, faça um arquivo de STATUS.md" e "revisar o projeto prático."
+
+### Artefatos e Entregáveis Consolidados
+1. **[STATUS.md](STATUS.md):** Auditoria demonstrando 100% de conformidade com os requisitos e critérios de pontuação.
+2. **[ROTEIRO_APRESENTACAO.md](ROTEIRO_APRESENTACAO.md):** Roteiro minuto a minuto para o vídeo de 5 minutos e modelo de e-mail para `gustavovale@ufla.br`.
+3. **Diagrama de Arquitetura:** Disponibilizado em formato visual (`arquitetura.png`) e código Mermaid nativo no `README.md`.
+4. **Clean Compose:** Atualização do `docker-compose.yml` sem atributos obsoletos.
