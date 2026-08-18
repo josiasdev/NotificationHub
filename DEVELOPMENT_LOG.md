@@ -92,3 +92,27 @@ Criar testes de integração de ponta a ponta com **Testcontainers** subindo con
 - **Execução Condicional:** Anotação `@EnabledIfEnvironmentVariable(named = "DOCKER_AVAILABLE", matches = "true")` permitindo execução fluida em ambientes locais ou pipelines de CI/CD.
 
 ---
+
+## [2026-08-17] - Etapa 5: Documentação Interativa com Swagger UI / OpenAPI 3 & Correção de Converters BSON
+
+### Contexto e Objetivo
+Implementar documentação interativa da API REST com Swagger UI / Springdoc OpenAPI e adicionar conversores BSON customizados para o tipo `java.time.OffsetDateTime` no MongoDB.
+
+### Ferramentas de IA Utilizadas
+- **Ferramenta:** Antigravity (Gemini 3.6 Flash)
+- **Objetivo:** Configurar `OpenApiConfig`, anotações Swagger nos Controllers e resolver o `CodecConfigurationException` de `OffsetDateTime` no MongoDB.
+- **Prompt:** "vamos atualizar ele e fazer o swagger ui também."
+
+### Ajustes Técnicos Realizados
+1. **Swagger UI / OpenAPI 3 Integration:**
+   - Adicionada a dependência `springdoc-openapi-starter-webmvc-ui` (v2.6.0).
+   - Documentação interativa disponível em `http://localhost:8080/swagger-ui.html` e especificação JSON em `http://localhost:8080/v3/api-docs`.
+
+2. **MongoDB Custom Converters (`MongoConfig.java`):**
+   - Resolução da falha de codec BSON com `OffsetDateTimeToDateConverter` e `DateToOffsetDateTimeConverter`, permitindo persistência transparente de datas com timezone no MongoDB.
+
+3. **Tratamento de Rotas HTTP & Exception Handling:**
+   - Adicionado `HomeController` mapeado na raiz `/` retornando status de saúde da aplicação e mapa dos endpoints REST.
+   - Atualizado `GlobalExceptionHandler` para responder com HTTP 404 em `NoResourceFoundException` sem gerar poluição de logs.
+
+---

@@ -148,7 +148,14 @@ mvn test
 
 ---
 
-## 📑 6. Endpoints da API REST
+## 📑 6. Endpoints da API REST & Swagger UI
+
+### 📌 Documentação Interativa (Swagger UI)
+Com a aplicação rodando, acesse no seu navegador:
+- **Swagger UI:** [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+- **OpenAPI 3 JSON Spec:** [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs)
+
+### 🚀 Tabela de Endpoints
 
 | Método | Endpoint | Descrição |
 | :--- | :--- | :--- |
